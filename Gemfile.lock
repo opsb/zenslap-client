@@ -62,6 +62,7 @@ DEPENDENCIES
   method_lister
   mocha
   redgreen
+  rest-client
   rspec
   ruby-debug
   shoulda
