@@ -1,8 +1,6 @@
 source :rubygems
 
-gem 'heroku', '1.10.10'
-gem 'git', '1.2.5'
-gem 'rest-client'
+gemspec
 
 group :test do
   gem 'rspec'

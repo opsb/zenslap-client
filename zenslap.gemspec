@@ -46,6 +46,10 @@ Gem::Specification.new do |s|
      "spec/git_repo_spec.rb",
      "spec/spec_helper.rb"
   ]
+  
+  s.add_dependency(%q<heroku>, ["1.10.10"])
+  s.add_dependency(%q<git>, ["1.2.5"])
+  s.add_dependency(%q<rest-client>, ["1.6.1"])
 
   if s.respond_to? :specification_version then
     current_version = Gem::Specification::CURRENT_SPECIFICATION_VERSION
