@@ -1,10 +1,19 @@
 require 'heroku'
+require 'heroku/command'
 
 module Zenslap
   class Command
 
     ZENSLAP_HEROKU_USER = "admin@zenslap.me"
     ZENSLAP_ADDON = "zenslap2"
+
+    def run(command)
+      case command
+      when "create" then create
+      when "destroy" then destroy
+      else raise "#{command} command not found"
+      end
+    end
 
     def display(message)
       puts "---> #{message}"
@@ -23,8 +32,14 @@ module Zenslap
     def git_repo
       @git_repo ||= GitRepo.new
     end
+    
+    def heroku
+      Heroku::Command.run_internal('auth:client', [])
+    end
 
     def create
+      puts "creating"
+      
       begin
         if git_repo.remote_exists? 'zenslap'
           display_error "Zenslap has already been set up"

@@ -42,7 +42,7 @@ module ZenslapSpec
         stubs(:config_vars).returns({ "ZENSLAP_ID" => ZENSLAP_ID })
         stubs(:destroy)      
       end
-      @command.stubs(:heroku).returns(@heroku)      
+      Heroku::Command.stubs(:run_internal).with('auth:client', []).returns(@heroku)
     end
 
     context "zenslap" do

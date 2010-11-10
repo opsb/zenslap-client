@@ -18,4 +18,5 @@ group :local do
   gem 'redgreen'
   gem 'autotest-growl'
   gem 'autotest-fsevent'
+  gem 'ruby-debug'
 end
