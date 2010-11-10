@@ -1,4 +1,4 @@
-Bundler.require(:test)
+Bundler.require(:default, :test)
 require 'test/unit'
 require 'shoulda'
 require 'rspec'
