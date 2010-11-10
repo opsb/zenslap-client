@@ -45,6 +45,11 @@ module Zenslap
           display_error "Zenslap has already been set up"
           return
         end
+        
+        display "Checking for github details"
+        git_repo.github_owner
+        git_repo.github_name
+        git_repo.github_credentials
 
         display "Creating test environment in heroku"
         display "Using account: #{heroku.user}"
