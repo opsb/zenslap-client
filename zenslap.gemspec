@@ -15,7 +15,8 @@ Gem::Specification.new do |s|
   s.email = %q{oliver@opsb.co.uk}
   s.executables = ["zenslap"]
   s.files = [
-    ".gitignore",
+    ".bundle/config",
+     ".gitignore",
      ".rvmrc",
      "Gemfile",
      "Gemfile.lock",

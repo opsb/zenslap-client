@@ -5,6 +5,7 @@ $LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
 
 require 'rubygems'
 require 'bundler'
+ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/../Gemfile'
 Bundler.setup(:default)
 
 puts $LOAD_PATH
