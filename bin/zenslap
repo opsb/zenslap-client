@@ -9,6 +9,18 @@ require File.dirname(__FILE__) + '/../lib/zenslap'
 
 args = ARGV.dup
 ARGV.clear
-command = args.shift.strip
 
-Zenslap::Command.new.run(command)
+command = args.shift
+if command && ["create", "destroy"].include?(command)
+  Zenslap::Command.new.run(command)
+else 
+  puts DATA.read
+end
+
+__END__
+
+=== Zenslap commands
+  
+create   # create zenslap environment for this project
+destroy  # destroy zenslap environment for this project
+
