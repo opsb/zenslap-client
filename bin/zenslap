@@ -7,7 +7,9 @@ require 'rubygems'
 require 'bundler'
 Bundler.setup(:default)
 
-require 'zenslap'
+puts $LOAD_PATH
+
+require File.dirname(__FILE__) + '/../lib/zenslap'
 
 args = ARGV.dup
 ARGV.clear
