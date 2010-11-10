@@ -8,8 +8,6 @@ require 'bundler'
 ENV['BUNDLE_GEMFILE'] = File.dirname(__FILE__) + '/../Gemfile'
 Bundler.setup(:default)
 
-puts $LOAD_PATH
-
 require File.dirname(__FILE__) + '/../lib/zenslap'
 
 args = ARGV.dup
