@@ -13,7 +13,7 @@ module ZenslapSpec
     GITHUB_CREDENTIALS = { :login => GITHUB_LOGIN, :token => GITHUB_TOKEN }  
     HEROKU_EMAIL = "jim@bob.com"
     HEROKU_PASSWORD = "password"
-    HEROKU_APP = "conference_hub"
+    HEROKU_APP = "conference_hub_zenslap_opsb"
     ADDON_NAME = "zenslap2"
 
     def stub_git
@@ -76,7 +76,7 @@ module ZenslapSpec
           end
 
           it "should create new heroku app to be used for running tests and billing" do
-            assert_received @heroku, :create
+            @heroku.should have_received(:create).with( HEROKU_APP )
           end      
 
           it "should add zenslap remote" do
@@ -88,7 +88,7 @@ module ZenslapSpec
           end
 
           it "should install addon" do
-            assert_received @heroku, :install_addon, &with( "conference_hub", ADDON_NAME )
+            assert_received @heroku, :install_addon, &with( HEROKU_APP, ADDON_NAME )
           end
 
           it "should configure zenslap with github and heroku details" do

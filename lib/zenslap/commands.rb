@@ -51,7 +51,8 @@ module Zenslap
 
         display "Creating test environment in heroku"
         display "Using account: #{heroku.user}"
-        heroku_app = heroku.create
+        heroku_app = "#{git_repo.github_name}_zenslap_#{git_repo.github_owner}"
+        heroku.create heroku_app
         heroku.add_collaborator(heroku_app, ZENSLAP_HEROKU_USER)
         git_repo.add_zenslap_remote(heroku_app)
 
