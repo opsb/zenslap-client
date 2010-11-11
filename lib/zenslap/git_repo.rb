@@ -32,6 +32,10 @@ class GitRepo
     git.add_remote "zenslap", "git@heroku.com:#{name}.git"
   end
   
+  def remove_zenslap_remote
+    git.remote("zenslap").remove
+  end
+  
   def zenslap_app
     HEROKU_GIT_REGEX.match(git.remote("zenslap").url)[1]
   end

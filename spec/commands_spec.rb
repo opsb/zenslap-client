@@ -23,6 +23,7 @@ module ZenslapSpec
         stubs(:github_owner).returns(GITHUB_REPO_OWNER)
         stubs(:github_name).returns(GITHUB_REPO_NAME)
         stubs(:add_zenslap_remote)
+        stubs(:remove_zenslap_remote)        
         stubs(:zenslap_app).returns(HEROKU_APP)
       end
       GitRepo.stubs(:new).returns(@git_repo)
@@ -104,6 +105,10 @@ module ZenslapSpec
 
         it "should destroy heroku app" do
           assert_received @heroku, :destroy, &with(HEROKU_APP)
+        end
+        
+        it "should remove zenslap remote" do
+          @git_repo.should have_received(:remove_zenslap_remote)
         end
       end
     end  

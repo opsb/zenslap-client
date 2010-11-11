@@ -79,6 +79,8 @@ module Zenslap
     def destroy
       display "Destroying zenslap project and test environment"
       heroku.destroy git_repo.zenslap_app
+      display "Removing zenslap git remote"
+      git_repo.remove_zenslap_remote
       display "All done. Thanks for using zenslap."
     rescue ConsoleError => e
       display_error e
