@@ -14,13 +14,13 @@ command = args.shift
 if command && ["create", "destroy"].include?(command)
   Zenslap::Command.new.run(command)
 else 
-  puts DATA.read
-end
+  puts <<-eos
 
-__END__
+  === Zenslap commands
 
-=== Zenslap commands
+  create   # create zenslap environment for this project
+  destroy  # destroy zenslap environment for this project  
   
-create   # create zenslap environment for this project
-destroy  # destroy zenslap environment for this project
-
+  eos
+  
+end
