@@ -13,7 +13,7 @@ module ZenslapSpec
     GITHUB_CREDENTIALS = { :login => GITHUB_LOGIN, :token => GITHUB_TOKEN }  
     HEROKU_EMAIL = "jim@bob.com"
     HEROKU_PASSWORD = "password"
-    HEROKU_APP = "conference_hub_zenslap_opsb"
+    HEROKU_APP = "conference-hub-zenslap-opsb"
     ADDON_NAME = "zenslap2"
 
     def stub_git
