@@ -38,8 +38,6 @@ module Zenslap
     end
 
     def create
-      puts "creating"
-      
       begin
         if git_repo.remote_exists? 'zenslap'
           display_error "Zenslap has already been set up"
