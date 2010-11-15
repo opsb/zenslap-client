@@ -3,7 +3,7 @@ PATH
   specs:
     zenslap (0.1.5)
       heroku (= 1.10.10)
-      opsb-git (= 1.2.6)
+      opsb-git (= 1.2.11)
       rest-client (= 1.6.1)
 
 GEM
@@ -33,7 +33,7 @@ GEM
     mime-types (1.16)
     mocha (0.9.8)
       rake
-    opsb-git (1.2.6)
+    opsb-git (1.2.11)
     rake (0.8.7)
     redgreen (1.2.2)
     rest-client (1.6.1)
@@ -68,7 +68,7 @@ DEPENDENCIES
   heroku (= 1.10.10)
   method_lister
   mocha
-  opsb-git (= 1.2.6)
+  opsb-git (= 1.2.11)
   redgreen
   rest-client (= 1.6.1)
   rspec

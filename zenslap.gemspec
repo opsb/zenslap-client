@@ -23,7 +23,7 @@ Gem::Specification.new do |s|
   s.summary = %q{Client for zenslap continuous integration}
   s.test_files = Dir.glob("spec/**/*")  
   s.add_dependency('heroku', ["= 1.10.10"])
-  s.add_dependency('opsb-git', ["= 1.2.6"])
+  s.add_dependency('opsb-git', ["= 1.2.11"])
   s.add_dependency('rest-client', ["= 1.6.1"])
 end
 
