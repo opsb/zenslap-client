@@ -38,7 +38,9 @@ module Zenslap
     end
     
     def test_environment_name(name, owner)
-      "#{name}-zenslap-#{owner}".gsub(/[^a-zA-Z\d-]/, '-')
+      full_name = "#{name}-zenslap-#{owner}".gsub(/[^a-zA-Z\d-]/, '-')
+      return full_name if full_name.length <= 30
+      return full_name[0, 27].gsub(/-+$/, "") + "-" + rand(99).to_s
     end
 
     def create

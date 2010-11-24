@@ -56,6 +56,12 @@ module ZenslapSpec
         stub_zenslap
         stub_heroku    
       end
+      
+      it "should ensure test environment names have a maximum of 30 characters" do
+        name = @command.test_environment_name("delayed_job_groups_mongoid", "opsb")
+        name.should match /^delayed-job-groups-mongoid-\d+/
+        name.length.should be <= 30
+      end
 
       context "#create" do
         context "when zenslap has already been created" do
