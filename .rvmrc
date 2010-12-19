@@ -1,1 +1,1 @@
-rvm 1.8.7@zenslap-client
+rvm --create 1.8.7@zenslap-client

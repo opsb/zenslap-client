@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    zenslap (0.1.6)
+    zenslap (0.1.7)
       heroku (= 1.10.10)
       opsb-git (= 1.2.11)
       rest-client (= 1.6.1)
