@@ -20,4 +20,4 @@ def app
   app
 end
 
-exec "heroku #{ARGV.join("")} --app #{app}"
+exec "heroku #{ARGV.join(" ")} --app #{app}"
