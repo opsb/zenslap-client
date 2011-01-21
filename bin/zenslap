@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 
 def valid_app?(app)
-  system "heroku config --app #{app}"  
+  `heroku config --app #{app}`
+  $?.to_i == 0
 end
 
 def app
