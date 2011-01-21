@@ -1,26 +1,14 @@
-#!/usr/bin/env ruby
+#!/bin/sh
 
-lib = File.expand_path(File.dirname(__FILE__) + '/../lib')
-$LOAD_PATH.unshift(lib) if File.directory?(lib) && !$LOAD_PATH.include?(lib)
-
-require 'rubygems'
-
-require File.dirname(__FILE__) + '/../lib/zenslap'
-
-args = ARGV.dup
-ARGV.clear
-
-command = args.shift
-if command && ["create", "destroy"].include?(command)
-  Zenslap::Command.new.run(command)
-else 
-  puts <<-eos
-
-  === Zenslap commands
-
-  create   # create zenslap environment for this project
-  destroy  # destroy zenslap environment for this project  
-  
-  eos
-  
-end
+if [ "$1" = "setup" ]; then
+  echo "Enter the name of the zenslap app"
+  read app·
+  git config zenslap.zenslap $app
+else
+  app=$(git config zenslap.zenslap)
+  if [ "$app" = "" ]; then
+    echo "run zenslap setup first"
+    exit 1·
+  fi
+  heroku $* --app $app
+fi

@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{zenslap}
-  s.version = "0.1.7"
+  s.version = "0.2.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["opsb"]
@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = %q{Client for zenslap continuous integration}
   s.email = %q{oliver@opsb.co.uk}
   s.executables = ["zenslap"]
-  s.files = Dir.glob("{bin,lib}/**/*") + %w(Gemfile zenslap.gemspec)
+  s.files = Dir.glob("{bin}/**/*") + %w(zenslap.gemspec)
 
   s.homepage = %q{http://github.com/opsb/zenslap-client}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -22,8 +22,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Client for zenslap continuous integration}
   s.test_files = Dir.glob("spec/**/*")  
-  s.add_dependency('heroku', ["= 1.10.10"])
-  s.add_dependency('opsb-git', ["= 1.2.11"])
-  s.add_dependency('rest-client', ["= 1.6.1"])
+  s.add_dependency('heroku', ["~> 1.17.8"])
 end
 
