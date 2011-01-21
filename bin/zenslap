@@ -1,14 +1,15 @@
 #!/bin/sh
-
-if [ "$1" = "setup" ]; then
+app=$(git config zenslap.zenslap)
+while [ "$app" = "" ]; do·
   echo "Enter the name of the zenslap app"
-  read app·
-  git config zenslap.zenslap $app
-else
-  app=$(git config zenslap.zenslap)
-  if [ "$app" = "" ]; then
-    echo "run zenslap setup first"
-    exit 1·
+  read unvalidatedApp·
+  $(heroku config --app $unvalidatedApp)
+  if [ "$?" != "0" ]; then
+    echo $app
+  else
+    app=$unvalidatedApp
+    git config zenslap.zenslap $app
   fi
-  heroku $* --app $app
-fi
+done
+echo $app
+heroku $* --app $app
