@@ -1,15 +1,22 @@
-#!/bin/sh
-app=$(git config zenslap.zenslap)
-while [ "$app" = "" ]; do·
-  echo "Enter the name of the zenslap app"
-  read unvalidatedApp·
-  $(heroku config --app $unvalidatedApp)
-  if [ "$?" != "0" ]; then
-    echo $app
-  else
-    app=$unvalidatedApp
-    git config zenslap.zenslap $app
-  fi
-done
-echo $app
-heroku $* --app $app
+#!/usr/bin/env ruby
+
+def valid_app?(app)
+  system "heroku config --app #{app}"  
+end
+
+def app
+  app=%x{ git config zenslap.zenslap }  
+  while app == ""
+    puts "\nEnter the name of the zenslap app"
+    unvalidated_app = STDIN.gets.chomp
+    if unvalidated_app == ""
+      # retry
+    elsif valid_app? unvalidated_app
+      system "git config zenslap.zenslap #{unvalidated_app}"      
+      app = unvalidated_app
+    end
+  end
+  app
+end
+
+exec "heroku #{ARGV.join("")} --app #{app}"
