@@ -1,7 +1,7 @@
 zenslap
 =======
 
-Provides an easy way to configure your heroku test environment for your app
+Provides an easy way to configure your heroku test environment for your <a href="http://zenslap.me">zenslap app</a>.
 
 Install
 -------
