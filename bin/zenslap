@@ -1,23 +1,44 @@
 #!/usr/bin/env ruby
 
-def valid_app?(app)
-  `heroku config --app #{app}`
-  $?.to_i == 0
+require 'rubygems'
+require 'heroku'
+require 'heroku/command'
+require 'ruby-debug'
+
+def error_out(message)
+  puts message
+  exit 1
+end
+
+def find_app
+  github_url = `git config --get remote.origin.url`
+  zenslap_id = github_url[/github.com.(.+)/, 1].gsub(/\.git$/, "")
+  error_out "Unable to find zenslap id" unless zenslap_id
+  puts "Searching for a heroku app for #{zenslap_id}"
+  heroku = Heroku::Command::Auth.new(nil).client
+  app = heroku.list.map{|a|a[0]}.find do |app|
+    heroku.config_vars(app)['ZENSLAP_ID'] == zenslap_id
+  end  
+  error_out "Failed!" unless app
+  puts "Found #{app}"  
+  app
+end
+
+def retrieve_app
+  @app ||= %x{ git config zenslap.zenslap }
+end
+
+def store_app(name)
+  system "git config zenslap.zenslap #{name}"
 end
 
 def app
-  app=%x{ git config zenslap.zenslap }  
-  while app == ""
-    puts "\nEnter the name of the zenslap app"
-    unvalidated_app = STDIN.gets.chomp
-    if unvalidated_app == ""
-      # retry
-    elsif valid_app? unvalidated_app
-      system "git config zenslap.zenslap #{unvalidated_app}"      
-      app = unvalidated_app
-    end
+  name = retrieve_app
+  if name == ""
+    name = find_app
+    store_app(name)
   end
-  app
+  name
 end
 
 exec "heroku #{ARGV.join(" ")} --app #{app}"
