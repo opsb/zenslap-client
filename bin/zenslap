@@ -17,7 +17,7 @@ def find_app
   puts "Searching for a heroku app for #{zenslap_id}"
   heroku = Heroku::Command::Auth.new(nil).client
   app = heroku.list.map{|a|a[0]}.find do |app|
-    heroku.config_vars(app)['ZENSLAP_ID'] == zenslap_id
+    heroku.config_vars(app)['ZENSLAP_GITHUB_REPOSITORY'] == zenslap_id
   end  
   error_out "Failed!" unless app
   puts "Found #{app}"  
