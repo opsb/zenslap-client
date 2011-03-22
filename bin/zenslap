@@ -3,7 +3,6 @@
 require 'rubygems'
 require 'heroku'
 require 'heroku/command'
-require 'ruby-debug'
 
 def error_out(message)
   puts message
