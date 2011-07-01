@@ -22,6 +22,6 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Client for zenslap continuous integration}
   s.test_files = Dir.glob("spec/**/*")  
-  s.add_dependency('heroku', ["~> 1.17.8"])
+  s.add_dependency('heroku', ["~> 2.0"])
 end
 
