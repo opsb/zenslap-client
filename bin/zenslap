@@ -4,40 +4,62 @@ require 'rubygems'
 require 'heroku'
 require 'heroku/command'
 
-def error_out(message)
-  puts message
-  exit 1
-end
-
-def find_app
-  github_url = `git config --get remote.origin.url`
-  zenslap_id = github_url[/github.com.(.+)/, 1].gsub(/\.git$/, "")
-  error_out "Unable to find zenslap id" unless zenslap_id
-  puts "Searching for a heroku app for #{zenslap_id}"
-  heroku = Heroku::Command::Auth.new(nil).client
-  app = heroku.list.map{|a|a[0]}.find do |app|
-    heroku.config_vars(app)['ZENSLAP_GITHUB_REPOSITORY'] == zenslap_id
-  end  
-  error_out "Failed!" unless app
-  puts "Found #{app}"  
-  app
-end
-
-def retrieve_app
-  @app ||= %x{ git config zenslap.zenslap }
-end
-
-def store_app(name)
-  system "git config zenslap.zenslap #{name}"
-end
-
-def app
-  name = retrieve_app
-  if name == ""
-    name = find_app
-    store_app(name)
+module Zenslap
+  extend self
+  
+  module GitConfig
+    extend self
+    
+    def zenslap_app
+      @app ||= begin 
+        name = %x{ git config zenslap.zenslap }
+        name != "" && name
+      end
+    end
+    
+    def zenslap_app=(name)
+      system "git config zenslap.zenslap #{name}"
+      name
+    end
+    
+    def github_repository
+      @github_repository ||= begin
+        github_url = `git config --get remote.origin.url`
+        github_repository = github_url[/github.com.(.+)/, 1].gsub(/\.git$/, "")
+        error_out "Unable to find a github repository in git config"
+        github_repository
+      end
+    end
+    
+    private
+    def error_out(message)
+      puts message
+      exit 1
+    end
   end
-  name
+  
+  module Heroku
+    extend self
+    
+    def find_app
+      puts "Searching for zenslap build environment on heroku"
+      app = client.list.map{|a|a[0]}.find do |app|
+        client.config_vars(app)['ZENSLAP_GITHUB_REPOSITORY'] == GitConfig.github_repository
+      end  
+      error_out "Failed!" unless app
+      puts "Found #{app}"  
+      app
+    end
+    
+    private
+    def client
+      @client ||= ::Heroku::Auth.client      
+    end
+  end
+  
+  def app
+    GitConfig.zenslap_app ||= Heroku.find_app
+  end
 end
 
-exec "heroku #{ARGV.join(" ")} --app #{app}"
+exec "heroku #{ARGV.join(" ")} --app #{Zenslap.app}"
