@@ -26,7 +26,7 @@ module Zenslap
       @github_repository ||= begin
         github_url = `git config --get remote.origin.url`
         github_repository = github_url[/github.com.(.+)/, 1].gsub(/\.git$/, "")
-        error_out "Unable to find a github repository in git config"
+        error_out "Unable to find a github repository in git config" unless github_repository
         github_repository
       end
     end
